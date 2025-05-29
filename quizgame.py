@@ -1,13 +1,16 @@
+import random
+import time
+
 class Question:
     def __init__(self, text, options, answer_index):
         self.text = text
         self.options = options
-        self.answer_index = answer_index  # 1-based (e.g., 1 for option[0])
+        self.answer_index = answer_index  
 
     def is_correct(self, user_choice):
         return user_choice == self.answer_index
 
-    def get_correct_option(self):
+    def get_correct(self):
         return self.options[self.answer_index - 1]
 
 
@@ -32,6 +35,10 @@ class QuizGame:
         ]
 
     def start(self):
+        random.shuffle(self.questions)
+
+        start_time = time.time()
+
         print(" Welcome to the Python Quiz Game!\n")
         score = 0
 
@@ -57,7 +64,23 @@ class QuizGame:
             else:
                 print(f"Incorrect! ")
 
-        print(f"Quiz Complete! Your score: {score}/{len(self.questions)}")
+        end_time = time.time()
+        elapsed = end_time - start_time
+
+        percentage = (score / len(self.questions)) * 100
+        
+        print(f"Quiz Complete! Your score: {score}/{len(self.questions)} ({percentage:.2f}%)")
+        print(f"⏱️ Time taken: {elapsed:.2f} seconds")
+
+        if percentage == 100:
+            print("Perfect score!")
+        elif percentage >= 70:
+            print("Great job!")
+        elif percentage >= 50:
+            print("Not bad!")
+        else:
+            print("Keep practicing!")
+
 
 if __name__ == "__main__":
     quiz = QuizGame()
