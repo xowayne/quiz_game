@@ -10,9 +10,6 @@ class Question:
     def is_correct(self, user_choice):
         return user_choice == self.answer_index
 
-    def get_correct(self):
-        return self.options[self.answer_index - 1]
-
 
 class QuizGame:
     def __init__(self):
